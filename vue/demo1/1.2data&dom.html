@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue demo</title>
+<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+1.变量绑定：app.message = "test"
+<div id="app" title="test">
+  <p>{{ message }}</p>
+</div>
+2.属性绑定：app2.message = "test"
+<div id="app-2">
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+    --指令带有前缀 v-，以表示它们是 Vue 提供的特殊特性；v-bind 功能是将这个元素节点的 title 特性和 Vue 实例的 message 属性保持一致
+  </span>
+</div>
+3.条件判断：app3.seen = false
+<div id="app-3">
+  <p v-if="seen">现在你看到我了</p>
+</div>
+4.循环：app4.todos.push({ text: '新项目' })
+<div id="app-4">
+	<ol>
+		<li v-for="todo in todos">
+			{{todo.text}}
+		</li>
+	</ol>
+</div>
+5.处理输入：
+<div id="app-5">
+	<p>{{ message }}</p>
+	<button v-on:click="reverseMessage">逆转信息</button>
+</div>
+6.双向绑定：
+<div id="app-6">
+	<p>{{message}}</p>
+	<input v-model="message">
+</div>
+<script type="text/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!'
+  }
+});
+
+var app2= new Vue({
+	el:"#app-2",
+	data:{
+		message:"页面加载于 "+new Date().toLocaleString()
+	}
+});
+
+var app3 = new Vue({
+	el:"#app-3",
+	data:{
+		seen:true
+	}
+});
+
+var app4 = new Vue({
+	el:"#app-4",
+	data:{
+		todos:[{text:"学习"},{text:"吃饭"},{text:"睡觉"}]
+	}
+});
+
+var app5 = new Vue({
+	el:"#app-5",
+	data:{
+		message:"123 456 789"
+	},
+	methods:{
+		reverseMessage:function(){
+			this.message = this.message.split(" ").reverse().join(" ")
+		}
+	}
+})
+
+var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+</script>
+</body>
+</html>

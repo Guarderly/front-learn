@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue demo</title>
+<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<br>每个 Vue 实例在被创建时都要经过一系列的初始化过程，在这个过程中也会运行一些叫做生命周期钩子的函数，mounted、updated 和 destroyed，生命周期钩子的 this 上下文指向调用它的 Vue 实例
+<br>new Vue()过程：(#代表生命周期)
+<br>1.init events&lifecycle
+<br>#beforeCreate
+<br>2.init injections&reactivity
+<br>#created
+<br>3.has "el" option?next:;
+<br>4.has "template" option?compile tmplate into render funcion:compile el's outerHtml as template;
+<br>#beforeMount
+<br>5.create vm.$el and replace 'el' with it;
+<br>#mounted
+<br>6.Mounted  
+<br>#beforeUpdate
+<br><==when data changes==>
+<br>#updated
+<br><==virtual dom re-render and patch==>
+<br>7.if vm.$destroy() is called
+<br>#beforeDestroy
+<br>8.teardown watchers,child components and event listeners
+<br>9.destroyed
+<br>#destroyed
+<div id="app">
+  <p>{{ message }}</p>
+  <button v-on:click="clickMe">点击我</button>
+  <button v-on:click="destroyMe">销毁</button>
+</div>
+<script type="text/javascript">
+var count=0;
+var obj = {
+  message: '这是一个例子，通过F12查看生命周期执行顺序'
+}
+
+var app = new Vue({
+  el: '#app',
+  data: obj,
+  methods:{
+		clickMe:function(){
+			if(count++%2==0){
+				this.message = '这是一个例子,请点击F12'
+			}else{
+				this.message = '这是一个例子，通过F12查看生命周期执行顺序'
+			}
+			
+		},
+		destroyMe:function(){
+			this.$destroy()
+		}
+  },
+  beforeCreate:function(){
+  	console.log('call beforeCreate');
+  },
+  created:function(){
+  	//生命周期钩子
+  	console.log('call created')
+  },
+  beforeMount:function(){
+  	console.log('call beforeMount')
+  },
+  mounted:function(){
+  	console.log('call mounted')
+  },
+  beforeUpdate:function(){
+  	console.log('call beforeUpdate')
+  },
+  updated:function(){
+  	console.log('call updated')
+  },
+  beforeDestroy:function(){
+  	console.log('call beforeDestroy')
+  },
+  destroyed:function(){
+  	console.log('call destroyed')
+  }
+});
+//app.$destroy();
+
+//不要在选项属性或回调上使用箭头函数
+</script>
+</body>
+</html>

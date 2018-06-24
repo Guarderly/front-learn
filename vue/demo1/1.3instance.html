@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vue demo</title>
+<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+//当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。
+//只有当实例被创建时 data 中存在的属性才是响应式的。添加一个新的属性无用；
+//Object.freeze()，这会阻止修改现有的属性，也意味着响应系统无法再追踪变化
+<div id="app">
+  <p>{{ message }}</p>
+</div>
+<div id="app-1">
+  <p>{{ message }}</p>
+</div>
+
+<script type="text/javascript">
+//每个 Vue 应用都是通过用 Vue 函数创建一个新的 Vue 实例开始的：
+var obj = {
+  message: 'Hello Vue.js!'
+}
+
+Object.freeze(obj)
+
+new Vue({
+  el: '#app',
+  data: obj
+});
+
+var obj1 = {
+  message: 'Hello Vue.js!'
+}
+
+new Vue({
+  el: '#app-1',
+  data: obj1
+});
+
+obj.message = 'I want change'
+obj1.message = 'I want change'
+
+</script>
+</body>
+</html>
