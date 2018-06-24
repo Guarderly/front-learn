@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>模板语法-插值</title>
+<!-- 开发环境版本，包含了用帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+<br>模板语法
+<br>Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。
+<br>1.文本：
+<div id="app">
+<br><span>message:{{ message }}</span>
+<br>通过v-once指令执行一次性插值：
+<br><span v-once>这个将不会改变: {{ stableMessage }}</span>
+</div>
+
+<br>2.html:
+<<div id="app1">
+<br>双大括号会将数据解释为普通文本,使用 v-html 指令输出真正的 HTML:
+<br><p>Using mustaches: {{ rawHtml }}</p>
+<br><p>Using v-html directive: <span v-html="rawHtml"></span></p>
+<br>注意：绝不要对用户提供的内容使用html解析，容易导致 XSS 攻击；
+</div>
+
+<br>3.特性
+<br>通过v-bind指令绑定html元素特性
+<div id="app2">
+<br><button v-bind:disabled="isButtonDisabled">Button</button>
+</div>
+
+<br>4.补充
+<br>Vue.js 都提供了完全的 JavaScript 表达式支持：
+<br>{{ number + 1 }}
+<br>{{ ok ? 'YES' : 'NO' }}
+<br>{{ message.split('').reverse().join('') }}
+<br><div v-bind:id="'list-' + id"></div>
+<br>
+<br>5.v-bind 和 v-on 这两个最常用的指令缩写
+<br><!-- 完整语法 -->
+<br><a v-bind:href="url">...</a>
+<br><!-- 缩写 -->
+<br><a :href="url">...</a>
+<br>
+<br><!-- 完整语法 -->
+<br><a v-on:click="doSomething">...</a>
+<br><!-- 缩写 -->
+<br><a @click="doSomething">...</a>
+
+<script type="text/javascript">
+var vm = new Vue({
+  el: '#app',
+  data: {
+    message: '最常见的形式就是使用“Mustache”语法 (双大括号) 的文本插值',
+    stableMessage:'我会变'
+  }
+});
+vm.stableMessage = '我变了'
+
+var vm1 = new Vue({
+  el: '#app1',
+  data: {
+    rawHtml: '<span style="color:red">this is red</span>'
+  }
+});
+
+var vm2 = new Vue({
+  el: '#app2',
+  data: {
+    isButtonDisabled: true
+  }
+});
+</script>
+</body>
+</html>
